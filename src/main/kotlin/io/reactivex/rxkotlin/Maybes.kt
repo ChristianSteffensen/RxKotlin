@@ -2,19 +2,26 @@
 
 package io.reactivex.rxkotlin
 
-import io.reactivex.Maybe
-import io.reactivex.MaybeSource
-import io.reactivex.annotations.CheckReturnValue
-import io.reactivex.annotations.SchedulerSupport
-import io.reactivex.functions.*
+import io.reactivex.rxjava3.annotations.CheckReturnValue
+import io.reactivex.rxjava3.annotations.SchedulerSupport
+import io.reactivex.rxjava3.core.Maybe
+import io.reactivex.rxjava3.core.MaybeSource
+import io.reactivex.rxjava3.functions.BiFunction
+import io.reactivex.rxjava3.functions.Function3
+import io.reactivex.rxjava3.functions.Function4
+import io.reactivex.rxjava3.functions.Function5
+import io.reactivex.rxjava3.functions.Function6
+import io.reactivex.rxjava3.functions.Function7
+import io.reactivex.rxjava3.functions.Function8
+import io.reactivex.rxjava3.functions.Function9
 
 object Maybes {
     @CheckReturnValue
     @SchedulerSupport(SchedulerSupport.NONE)
     inline fun <T : Any, U : Any, R : Any> zip(
-            s1: MaybeSource<T>,
-            s2: MaybeSource<U>,
-            crossinline zipper: (T, U) -> R
+        s1: MaybeSource<T>,
+        s2: MaybeSource<U>,
+        crossinline zipper: (T, U) -> R
     ): Maybe<R> = Maybe.zip(s1, s2,
             BiFunction { t, u -> zipper.invoke(t, u) })
 

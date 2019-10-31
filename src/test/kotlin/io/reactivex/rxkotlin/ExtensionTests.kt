@@ -16,11 +16,11 @@
 
 package io.reactivex.rxkotlin
 
-import io.reactivex.Notification
-import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
-import io.reactivex.functions.Function3
-import io.reactivex.schedulers.TestScheduler
+import io.reactivex.rxjava3.core.Notification
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.ObservableEmitter
+import io.reactivex.rxjava3.functions.Function3
+import io.reactivex.rxjava3.schedulers.TestScheduler
 import org.funktionale.partials.invoke
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail

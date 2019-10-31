@@ -1,19 +1,25 @@
 package io.reactivex.rxkotlin
 
-import io.reactivex.Single
-import io.reactivex.SingleSource
-import io.reactivex.annotations.CheckReturnValue
-import io.reactivex.annotations.SchedulerSupport
-import io.reactivex.functions.*
-
+import io.reactivex.rxjava3.annotations.CheckReturnValue
+import io.reactivex.rxjava3.annotations.SchedulerSupport
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.SingleSource
+import io.reactivex.rxjava3.functions.BiFunction
+import io.reactivex.rxjava3.functions.Function3
+import io.reactivex.rxjava3.functions.Function4
+import io.reactivex.rxjava3.functions.Function5
+import io.reactivex.rxjava3.functions.Function6
+import io.reactivex.rxjava3.functions.Function7
+import io.reactivex.rxjava3.functions.Function8
+import io.reactivex.rxjava3.functions.Function9
 
 object Singles {
     @CheckReturnValue
     @SchedulerSupport(SchedulerSupport.NONE)
     inline fun <T : Any, U : Any, R : Any> zip(
-            s1: SingleSource<T>,
-            s2: SingleSource<U>,
-            crossinline zipper: (T, U) -> R
+        s1: SingleSource<T>,
+        s2: SingleSource<U>,
+        crossinline zipper: (T, U) -> R
     ): Single<R> = Single.zip(s1, s2, BiFunction { t, u -> zipper.invoke(t, u) })
 
     @CheckReturnValue
@@ -31,6 +37,7 @@ object Singles {
             s1: SingleSource<T1>, s2: SingleSource<T2>, s3: SingleSource<T3>,
             crossinline zipper: (T1, T2, T3) -> R
     ): Single<R> = Single.zip(s1, s2, s3, Function3 { t1, t2, t3 -> zipper.invoke(t1, t2, t3) })
+
 
     @CheckReturnValue
     @SchedulerSupport(SchedulerSupport.NONE)

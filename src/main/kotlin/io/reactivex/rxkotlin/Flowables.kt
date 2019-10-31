@@ -2,15 +2,22 @@
 
 package io.reactivex.rxkotlin
 
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.FlowableEmitter
-import io.reactivex.annotations.BackpressureKind
-import io.reactivex.annotations.BackpressureSupport
-import io.reactivex.annotations.CheckReturnValue
-import io.reactivex.annotations.SchedulerSupport
-import io.reactivex.functions.*
+import io.reactivex.rxjava3.annotations.BackpressureKind
+import io.reactivex.rxjava3.annotations.BackpressureSupport
+import io.reactivex.rxjava3.annotations.CheckReturnValue
+import io.reactivex.rxjava3.annotations.SchedulerSupport
+import io.reactivex.rxjava3.core.BackpressureStrategy
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.FlowableEmitter
+import io.reactivex.rxjava3.functions.BiFunction
 import org.reactivestreams.Publisher
+import io.reactivex.rxjava3.functions.Function3
+import io.reactivex.rxjava3.functions.Function4
+import io.reactivex.rxjava3.functions.Function5
+import io.reactivex.rxjava3.functions.Function6
+import io.reactivex.rxjava3.functions.Function7
+import io.reactivex.rxjava3.functions.Function8
+import io.reactivex.rxjava3.functions.Function9
 
 
 object Flowables {
@@ -19,9 +26,9 @@ object Flowables {
     @BackpressureSupport(BackpressureKind.FULL)
     @SchedulerSupport(SchedulerSupport.NONE)
     inline fun <T1 : Any, T2 : Any, R : Any> combineLatest(
-            source1: Flowable<T1>,
-            source2: Flowable<T2>,
-            crossinline combineFunction: (T1, T2) -> R
+        source1: Flowable<T1>,
+        source2: Flowable<T2>,
+        crossinline combineFunction: (T1, T2) -> R
     ): Flowable<R> = Flowable.combineLatest(source1, source2,
             BiFunction<T1, T2, R> { t1, t2 -> combineFunction(t1, t2) })
 
@@ -158,8 +165,8 @@ object Flowables {
     @BackpressureSupport(BackpressureKind.SPECIAL)
     @SchedulerSupport(SchedulerSupport.NONE)
     inline fun <T : Any> create(
-            mode: BackpressureStrategy,
-            crossinline source: (FlowableEmitter<T>) -> Unit
+        mode: BackpressureStrategy,
+        crossinline source: (FlowableEmitter<T>) -> Unit
     ): Flowable<T> = Flowable.create({ source(it) }, mode)
 
 

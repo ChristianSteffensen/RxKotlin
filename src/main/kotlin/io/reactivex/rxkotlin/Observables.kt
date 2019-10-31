@@ -2,11 +2,18 @@
 
 package io.reactivex.rxkotlin
 
-import io.reactivex.Observable
-import io.reactivex.ObservableSource
-import io.reactivex.annotations.CheckReturnValue
-import io.reactivex.annotations.SchedulerSupport
-import io.reactivex.functions.*
+import io.reactivex.rxjava3.annotations.CheckReturnValue
+import io.reactivex.rxjava3.annotations.SchedulerSupport
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.ObservableSource
+import io.reactivex.rxjava3.functions.BiFunction
+import io.reactivex.rxjava3.functions.Function3
+import io.reactivex.rxjava3.functions.Function4
+import io.reactivex.rxjava3.functions.Function5
+import io.reactivex.rxjava3.functions.Function6
+import io.reactivex.rxjava3.functions.Function7
+import io.reactivex.rxjava3.functions.Function8
+import io.reactivex.rxjava3.functions.Function9
 
 /**
  * SAM adapters to aid Kotlin lambda support
@@ -16,9 +23,9 @@ object Observables {
     @CheckReturnValue
     @SchedulerSupport(SchedulerSupport.NONE)
     inline fun <T1 : Any, T2 : Any, R : Any> combineLatest(
-            source1: Observable<T1>,
-            source2: Observable<T2>,
-            crossinline combineFunction: (T1, T2) -> R
+        source1: Observable<T1>,
+        source2: Observable<T2>,
+        crossinline combineFunction: (T1, T2) -> R
     ): Observable<R> = Observable.combineLatest(source1, source2,
             BiFunction<T1, T2, R> { t1, t2 -> combineFunction(t1, t2) })
 
@@ -228,8 +235,8 @@ object Observables {
 @CheckReturnValue
 @SchedulerSupport(SchedulerSupport.NONE)
 inline fun <T : Any, U : Any, R : Any> Observable<T>.withLatestFrom(
-        other: ObservableSource<U>,
-        crossinline combiner: (T, U) -> R
+    other: ObservableSource<U>,
+    crossinline combiner: (T, U) -> R
 ): Observable<R> = withLatestFrom(other, BiFunction<T, U, R> { t, u -> combiner.invoke(t, u) })
 
 /**
